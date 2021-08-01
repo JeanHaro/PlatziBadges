@@ -7,10 +7,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Importamos el global.css
 import './global.css'
 
-// Importamos nuestras páginas
-import BadgeNew from './pages/BadgeNew'
-import Badges from './pages/Badges'
+// Importamos nuestras páginas - La moveremos al componente App donde usamos el Browser Router
+/* import BadgeNew from './pages/BadgeNew';
+import Badges from './pages/Badges'; */
+
+// Importamos nuevo componente - Acá añadiré Browser Router y mis rutas
+import App from './components/App';
 
 const container = document.getElementById('app');
 
-ReactDOM.render(<Badges />, container);
+ReactDOM.render(<App />, container);

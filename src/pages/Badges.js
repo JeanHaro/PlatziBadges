@@ -1,4 +1,6 @@
 import React from 'react';
+// Importamos Link
+import { Link } from 'react-router-dom';
 
 // Importando los estilos
 import './styles/Badges.css'
@@ -43,8 +45,7 @@ class Badges extends React.Component {
         ]
     }
 
-    // Por cada uno de los datos aparezca un componente
-    // La clave esta en cada uno de esos datos
+    // Link - en diferencia de a, en vez de usar href usamos to
     render() {
         return (
             <div>
@@ -64,9 +65,9 @@ class Badges extends React.Component {
 
                 <div className="Badges__container">
                     <div className="Badges__buttons">
-                        <a href="/badges/new" className="btn btn-primary">
+                        <Link to="/badges/new" className="btn btn-primary">
                             New Badge
-                        </a>
+                        </Link>
                     </div>
                 
                     <div className="Badges__list">
