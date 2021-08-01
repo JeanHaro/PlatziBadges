@@ -7,10 +7,13 @@ import './styles/Badge.css';
 // Traemos la imagen
 import confLogo from '../images/badge-header.svg';
 
-// La Clase Badge extiende a la clase React.Component
 class Badge extends React.Component {
-    // Para nombrar las clases en JavaScript a cada etiqueta es con className=""
+    // Colocamos {this.props.[nombre]} para que le demos los datos desde el index.js en donde estará como atributo
     render() {
+        /* this.props;
+        const firstName= 'Jean';
+        const lastName = 'Haro'; */
+
         return (
             <div className="Badge">
                 <div className="Badge__header">
@@ -18,13 +21,13 @@ class Badge extends React.Component {
                 </div>
 
                 <div className="Badge__section-name">
-                    <img className="Badge__avatar" src="https://www.gravatar.com/avatar?d=identicon" alt="Avatar"/>
-                    <h1>Jean <br/> Haro</h1>
+                    <img className="Badge__avatar" src={this.props.avatarUrl} alt="Avatar"/>
+                    <h1>{this.props.firstName}<br/>{this.props.lastName}</h1>
                 </div>
 
                 <div className="Badge__section-info">
-                    <h3>Desarrollador Frontend</h3>
-                    <div>@jeanc98</div>
+                    <h3>{this.props.jobTitle}</h3>
+                    <div>@{this.props.twitter}</div>
                 </div>
 
                 <div className="Badge__footer">
