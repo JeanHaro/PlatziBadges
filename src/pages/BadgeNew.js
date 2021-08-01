@@ -12,8 +12,6 @@ import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
 
 class BadegeNew extends React.Component {
-    // Buscar una técnica para que el estado este en BadgeNew y no en BadgeForm
-    // Inicializamos ahora todos los valores
     state = { form: {
         firstName: '',
         lastName: '',
@@ -22,17 +20,8 @@ class BadegeNew extends React.Component {
         twitter: '',
     } };
 
-    // En lugar de que lo tenga BadgeForm, ahora le va a pertenecer a BadgeNew
-    // El form tenga la información del evento que acaba de ocurrir con nombre y valor
     handleChange = e => {
-        // Copia del estado del form
-        // El proximo estado del form es igual al estado actual que tiene el form
-        // const nextForm = this.state.form;
-        // nextForm va a tener un valor en esta llave que va ser igual a este valor
-        // nextForm[e.target.name] = e.target.value; 
-
         this.setState({
-            // form: nextForm,
             form: {
                 // Dejamos caer todos los valores que tenía el form anteriormente
                 // y le añadiremos uno nuevo

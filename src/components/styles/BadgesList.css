@@ -1,0 +1,39 @@
+.list-unstyled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.list-unstyled li {
+    padding: 20px;
+    border-radius: 0.5rem;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(184, 184, 184, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+li .img-container {
+    border-radius: 50%;
+    overflow: hidden;
+    flex-basis: calc(20% - 1rem);
+}
+
+li .info-container {
+    flex-basis: calc(80% - 1rem);
+}
+
+.info-container p {
+    padding: 0;
+    margin: 0;
+}
+
+.info-container .info-twitter {
+    color: #1aace2;
+}
+
+.info-container .info-twitter img {
+    width: 35px;
+}

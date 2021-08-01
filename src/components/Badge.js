@@ -8,11 +8,7 @@ import './styles/Badge.css';
 import confLogo from '../images/badge-header.svg';
 
 class Badge extends React.Component {
-    // Colocamos {this.props.[nombre]} para que le demos los datos desde el index.js en donde estará como atributo
     render() {
-        /* this.props;
-        const firstName= 'Jean';
-        const lastName = 'Haro'; */
 
         return (
             <div className="Badge">

@@ -7,9 +7,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 // Importamos el global.css
 import './global.css'
 
-// Importamos nuestra página
+// Importamos nuestras páginas
 import BadgeNew from './pages/BadgeNew'
+import Badges from './pages/Badges'
 
 const container = document.getElementById('app');
 
-ReactDOM.render(<BadgeNew />, container);
+ReactDOM.render(<Badges />, container);

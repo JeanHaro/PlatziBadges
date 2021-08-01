@@ -2,25 +2,10 @@ import { div } from 'prelude-ls';
 import React from 'react';
 
 class BadgeForm extends React.Component {
-    // Inicializamos el estado en un objeto vacio
-    // Se va llenando cada avez que colocamos datos en los input
-    // Ahora ya no guardamos el state acá, sino lo guardamos desde BadgeNew
-    // state = {};
-
-    // handleChange = (e) => {
-        // Guardamos la información en estado
-        // this.setState({
-            /* Esto lo que va ser, si es el input del email que llama a esta función, se va a guardar 
-            la función dentro de la llave email, si es en twitter dentro de la llave twitter y asi */
-            /* [e.target.name]: e.target.value, */
-        // })
-    // }
-    
     handleClick = (e) => {
         console.log('Button was clicked');
     }
     
-
     handleSubmit = e => {
         // Para que no envíe el formulario
         e.preventDefault();
@@ -29,8 +14,6 @@ class BadgeForm extends React.Component {
         console.log(this.state);
     }
 
-    // El value es lo que va a tener y va a desplegar cada uno de los input
-    // En value ponemos this.state.firstName - para leer lo que está en firstName
     render() {
         return (
             <div>
