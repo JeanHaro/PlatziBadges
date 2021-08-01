@@ -1,33 +1,33 @@
 // Lo primero que vamos a hacer es el componente que representa el badge
 import React from 'react';
 
+// Importar el css
+import './styles/Badge.css';
+
 // Traemos la imagen
 import confLogo from '../images/badge-header.svg';
 
 // La Clase Badge extiende a la clase React.Component
 class Badge extends React.Component {
-    // Todos los componentes requieren por lo menos un método que es obligatorio
-    // Ese método es el render
-    // Render() - define cual va ser el resultado que vamos a ver en pantalla
-    // {confLogo} - así llamaríamos a la imagen, se llama props
+    // Para nombrar las clases en JavaScript a cada etiqueta es con className=""
     render() {
         return (
-            <div>
-                <div>
+            <div className="Badge">
+                <div className="Badge__header">
                     <img src={confLogo} alt="Logo de la conferencia"/>
                 </div>
 
-                <div>
-                    <img src="https://www.gravatar.com/avatar?d=identicon" alt="Avatar"/>
+                <div className="Badge__section-name">
+                    <img className="Badge__avatar" src="https://www.gravatar.com/avatar?d=identicon" alt="Avatar"/>
                     <h1>Jean <br/> Haro</h1>
                 </div>
 
-                <div>
-                    <p>Desarrollador Frontend</p>
-                    <p>@jeanc98</p>
+                <div className="Badge__section-info">
+                    <h3>Desarrollador Frontend</h3>
+                    <div>@jeanc98</div>
                 </div>
 
-                <div>
+                <div className="Badge__footer">
                     #platziconf
                 </div>
             </div>
