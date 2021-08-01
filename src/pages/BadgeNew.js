@@ -13,7 +13,7 @@ import Badge from '../components/Badge';
 class BadegeNew extends React.Component {
     // Acá realizaremos la página
     // Algunas clases no conocemos porque son de bootstrap como container, row, col
-    // Llamamos a los componentes y añadimos algunos estilos que no serán reutilizables por acá
+    // Llamamos a los componentes y añadimos algunos estilos y etiquetas que no serán reutilizables por acá
     render() {
         return (
             <div>
