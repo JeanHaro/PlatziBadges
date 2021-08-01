@@ -9,7 +9,6 @@ import './styles/Badges.css'
 import confLogo from '../images/badge-header.svg';
 
 // Importando los componentes
-import Navbar from '../components/Navbar';
 import BadgesList from '../components/BadgesList';
 
 class Badges extends React.Component {
@@ -46,11 +45,10 @@ class Badges extends React.Component {
     }
 
     // Link - en diferencia de a, en vez de usar href usamos to
+    // Quitamos el Navbar
     render() {
         return (
-            <div>
-                <Navbar />
-
+            <React.Fragment>
                 <div className="Badges">
                     <div className="Badges__hero">
                         <div className="Badges__container">
@@ -76,7 +74,7 @@ class Badges extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </React.Fragment>
         )
     }
 }
