@@ -1,7 +1,9 @@
 import React from 'react';
 
+// Importamos los estilos de la página
 import './styles/BadgeNew.css';
 
+// Importamos la imagen
 import header from '../images/badge-header.svg';
 
 // Importamos nuestros componentes
@@ -10,6 +12,8 @@ import Badge from '../components/Badge';
 
 class BadegeNew extends React.Component {
     // Acá realizaremos la página
+    // Algunas clases no conocemos porque son de bootstrap como container, row, col
+    // Llamamos a los componentes y añadimos algunos estilos que no serán reutilizables por acá
     render() {
         return (
             <div>
