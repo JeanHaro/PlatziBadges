@@ -9,6 +9,7 @@ import header from '../images/badge-header.svg';
 // Importamos nuestros componentes
 import Navbar from '../components/Navbar';
 import Badge from '../components/Badge';
+import BadgeForm from '../components/BadgeForm';
 
 class BadegeNew extends React.Component {
     // Acá realizaremos la página
@@ -24,7 +25,7 @@ class BadegeNew extends React.Component {
 
                 <div className="container">
                     <div className="row">
-                        <div className="col">
+                        <div className="col-6">
                             <Badge 
                                 firstName="Jean" 
                                 lastName="Haro" 
@@ -32,6 +33,10 @@ class BadegeNew extends React.Component {
                                 jobTitle="Developer Frontend"
                                 avatarUrl="https://s.gravatar.com/avatar/1642826e0569c0af8fdbc01442fbc752?s=80"
                             />
+                        </div>
+
+                        <div className="col-6">
+                            <BadgeForm />
                         </div>
                     </div>
                 </div>
