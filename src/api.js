@@ -26,10 +26,10 @@ const api = {
             // return [];
 
             // Si hay Data
-            // return callApi('/badges');
+            return callApi('/badges');
 
             // Si hay error
-            throw new Error('500: Server Error');
+            // throw new Error('500: Server Error');
         },
         create(badge) {
             return callApi(`/badges`, {

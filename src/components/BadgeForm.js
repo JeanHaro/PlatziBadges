@@ -1,4 +1,3 @@
-import { div } from 'prelude-ls';
 import React from 'react';
 
 class BadgeForm extends React.Component {
@@ -6,20 +5,20 @@ class BadgeForm extends React.Component {
         console.log('Button was clicked');
     }
     
-    handleSubmit = e => {
+    /* handleSubmit = e => {
         // Para que no envíe el formulario
         e.preventDefault();
         console.log('Form was submitted');
         // Cuando enviemos el formulario leemos todo el estado
         console.log(this.state);
-    }
+    } */
 
     render() {
         return (
             <div>
                 <h1>New Attendant</h1>
 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.props.onSubmit}>
                     <div className="form-group">
                         <label>First Name</label>
                         <input 
