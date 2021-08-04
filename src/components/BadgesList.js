@@ -1,4 +1,6 @@
 import React from 'react';
+// Importamos el link
+import { Link } from 'react-router-dom';
 
 // Importamos los estilos
 import './styles/BadgesList.css'
@@ -14,6 +16,19 @@ renderizar, ver si se mantuvo en la lista o si cambio */
 // Con FirstName tenemos el riesgo que dos personas se llamen igual y el id se repita
 class BadgesList extends React.Component {
     render() {
+        // No hubo ningún dato
+        // Si no hubo ningún dato en la data, se mostrará esto
+        if (this.props.badges.length === 0) {
+            return (
+                <div>
+                    <h3>No badges were found</h3>
+                    <Link className="btn btn-primary" to="/badges/new">
+                        Create new badge
+                    </Link>
+                </div>
+            )
+        }
+
         return (
             <ul className="list-unstyled">
                 {this.props.badges.map((badge) => {

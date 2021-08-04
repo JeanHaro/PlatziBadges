@@ -10,85 +10,65 @@ import confLogo from '../images/badge-header.svg';
 
 // Importando los componentes
 import BadgesList from '../components/BadgesList';
+import PageLoading from '../components/PageLoading';
+import PageError from '../components/PageError';
+
+// Importamos el API
+import api from '../api';
 
 class Badges extends React.Component {
-    // El constructor es donde inicializamos el estado
-    constructor (props) {
-        // super clase
-        super(props);
-        console.log('1. constructor()');
+    state = {
+        // Loading - cuando cargue la página, es lo primero que va hacer, cargar los datos
+        loading: true,
+        // Aún no hay error
+        error: null,
+        data: undefined,
+    }
 
-        this.state = {
-            data: [],
+    // El mejor lugar para iniciar una petición de una API es en el componentDidMount()
+    // Eso nos asegura que el código de nuestro componente ya está listo
+    /* Así que cualquier efecto secundario llamada exterior de una API, ya la podemos hacer con seguridad 
+    que nuestros datos están listos para recibirlos */
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async () => {
+        // Declarar al estado con loading tru y error null
+        // Es posible que en un futuro volvamos a llamar a fetchData
+        // Loading se había vuelto falso hay que regresarlo a cierto
+        // Error si ya existía, hay que cancelarlo
+        this.setState({ loading: true, error: null });
+
+        // Llamada a la API
+        try {
+            // api.badges.list() - una llamada a badges donde queremos toda la lista de los badgess
+            // Esta llamada es asincrona, regresa una promesa
+            // Si acá resulta error, entonces esta llamada será rechazada y tira error en catch
+            const data = await api.badges.list();
+            // const data = [];
+            // Voy a recibir datos y esos datos lo guardamos en el estado
+            // El loading ya acabó, y los datos se guardan en data
+            this.setState({ loading: false, data: data });
+        } catch (error) {
+            // Loading ya acabó, pero esta vez tenemos un error
+            this.setState({ loading: false, error: error });
         }
     }
 
-    componentDidMount() {
-        console.log('3. componentDidMount()')
-
-        // Vuelve a llamar a Render, porque cambio la información
-        // El setTimeout nos va a regresar un valor
-        // this para que se pueda utilizar la variable en toda la clase
-        this.timeoutId = setTimeout(() => {
-            // Actualizar el estado
-            this.setState({
-                data: [{
-                    id: "2de30c42-9deb-40fc-a41f-05e62b5939a7",
-                    firstName: "Freda",
-                    lastName: "Grady",
-                    email: "Leann_Berge@gmail.com",
-                    jobTitle: "Legacy Brand Director",
-                    twitter: "FredaGrady",
-                    avatarUrl: "https://www.gravatar.com/avatar/f63a9c45aca0e7e7de0782a6b1dff40b?d=identicon"
-                },
-                {
-                    id: "d00d3614-101a-44ca-b6c2-0be075aeed3d",
-                    firstName: "Major",
-                    lastName: "Rodriguez",
-                    email: "Ilene66@hotmail.com",
-                    jobTitle: "Human Research Architect",
-                    twitter: "ajorRodriguez",
-                    avatarUrl: "https://www.gravatar.com/avatar/d57a8be8cb9219609905da25d5f3e50a?d=identicon"
-                },
-                {
-                    id: "63c03386-33a2-4512-9ac1-354ad7bec5e9",
-                    firstName: "Daphney",
-                    lastName: "Torphy",
-                    email: "Ron61@hotmail.com",
-                    jobTitle: "National Markets Officer",
-                    twitter: "DaphneyTorphy",
-                    avatarUrl: "https://www.gravatar.com/avatar/e74e87d40e55b9ff9791c78892e55cb7?d=identicon"
-                }]
-            })
-        }, 3000);
-    }
-
-    // Primer argumento, los props que teníamos antes
-    // Segundo argumento, el state que teníamos antes
-    componentDidUpdate (prevProps, prevState) {
-        console.log('5. componentDidUpdate()')
-        // Vemos los props y la data vacia
-        console.log({
-            prevProps: prevProps, prevState: prevState
-        })
-        // Vemos los props y la data con lo que se añadio en el montaje
-        console.log({
-            props: this.props, state: this.state
-        })
-    }
-
-    // Es antes de que se vaya el componente del DOM - que salga de escena
-    componentWillUnmount() {
-        console.log('6. componentWillUnmount()');
-
-        // Va a recibir el id del setTimeout que está en componentDidMount()
-        // Si existe ese id 
-        // Y ese trabajo está pendiente lo cancela y lo libera para no perder memoria
-        clearTimeout(this.timeoutId);
-    }
-
     render() {
-        console.log('2/4. render()')
+        // Loading sea cierto
+        // Regresamos Loading
+        // Cuando loading acabe nuestros datos quizás ya estén
+        if (this.state.loading === true) {
+            return <PageLoading />;
+        }
+
+        //  Si hay error
+        if (this.state.error) {
+            return <PageError error={this.state.error}/>;
+        }
+
         return (
             <React.Fragment>
                 <div className="Badges">
