@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Importamos los estilos de la página
-import './styles/BadgeNew.css';
+import './styles/BadgeEdit.css';
 
 // Importamos la imagen
 import header from '../images/platziconf-logo.svg';
@@ -14,11 +14,10 @@ import PageLoading from '../components/PageLoading';
 // Importamos el API porque usaremos una llamada
 import api from '../api';
 
-// El loading no va ser true cuando lleguemos a esta página
-// Este loading va a representar que estamos enviando los datos 
-class BadegeNew extends React.Component {
+// El loading va ser true ya que será una petición
+class BadegeEdit extends React.Component {
     state = { 
-        loading: false,
+        loading: true,
         error: null,
         form: {
             firstName: '',
@@ -27,6 +26,28 @@ class BadegeNew extends React.Component {
             jobTitle: '',
             twitter: '',
         } 
+    };
+
+    // Cuando el componentDidMount ocurra voy a buscar los datos
+    componentDidMount() {
+        this.fetchData();
+    }
+
+    fetchData = async e => {
+        this.setState({ loading: true, error: null });
+
+        // Read va a tomar el id del badge que nos interesa
+        /* Cada una de esas variables que insertamos en el Path que declaramos en la ruta, lo 
+        podemos acceder dentro del objeto params */
+        try {
+            const data = await api.badges.read(
+                this.props.match.params.badgeId
+            )
+
+            this.setState( {loading: false, form: data });
+        } catch (error) {
+            this.setState({ loading: false, error: error });
+        }
     };
 
     handleChange = e => {
@@ -45,9 +66,9 @@ class BadegeNew extends React.Component {
         this.setState({ loading: true, error: null });
 
         // try porque vamos hacer una llamada
-        // En create() le damos los datos del nuevo badge
+        // En update() actualizaremos todo lo que cambiamos
         try {
-            await api.badges.create(this.state.form);
+            await api.badges.update(this.props.match.params.badgeId, this.state.form);
             this.setState({ loading: false });
 
             // irnos del formulario, irnos a la lista de badges
@@ -69,8 +90,8 @@ class BadegeNew extends React.Component {
         }
         return (
             <React.Fragment>
-                <div className="BadgeNew__hero">
-                    <img className="BadgeNew_hero-image img-fluid" src={header} alt="logo"/>
+                <div className="BadgeEdit__hero">
+                    <img className="BadgeEdit_hero-image img-fluid" src={header} alt="logo"/>
                 </div>
 
                 <div className="container">
@@ -87,7 +108,7 @@ class BadegeNew extends React.Component {
                         </div>
 
                         <div className="col-6">
-                            <h1>New Attendant</h1>
+                            <h1>Edit Attendant</h1>
                             <BadgeForm 
                                 onChange={this.handleChange} 
                                 onSubmit={this.handleSubmit}
@@ -102,4 +123,4 @@ class BadegeNew extends React.Component {
     }
 }
 
-export default BadegeNew;
+export default BadegeEdit;

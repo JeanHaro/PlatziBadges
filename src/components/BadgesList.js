@@ -26,22 +26,27 @@ class BadgesList extends React.Component {
             )
         }
 
+        // Damos un Link a todo el contenido del LI, y le damos que redireccione por su id al edit
+        // Le ponemos clase de bootstrap para que quite los colores azules
+        // Y una clase propia para editar el entorno
         return (
             <ul className="list-unstyled">
                 {this.props.badges.map((badge) => {
                     return (
                         <li key={badge.id}>
-                            <Gravatar 
-                                className="img-container"
-                                email={badge.email}
-                                alt="Avatar"
-                            />
+                            <Link className="link-list text-reset text-decoration-none" to={`/badges/${badge.id}/edit`}>
+                                <Gravatar 
+                                    className="img-container"
+                                    email={badge.email}
+                                    alt="Avatar"
+                                />
 
-                            <div className="info-container">
-                                <p>{badge.firstName} {badge.lastName}</p>
-                                <p className="info-twitter"><img src={logoTwitter} alt="Logo Twitter" />@{badge.twitter}</p>
-                                <p>{badge.jobTitle}</p>
-                            </div>
+                                <div className="info-container">
+                                    <p>{badge.firstName} {badge.lastName}</p>
+                                    <p className="info-twitter"><img src={logoTwitter} alt="Logo Twitter" />@{badge.twitter}</p>
+                                    <p>{badge.jobTitle}</p>
+                                </div>
+                            </Link>
                         </li>
                     )
                 })}
