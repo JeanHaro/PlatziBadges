@@ -31,6 +31,14 @@ class Badges extends React.Component {
     que nuestros datos están listos para recibirlos */
     componentDidMount() {
         this.fetchData();
+
+        // Para que cargue la página y se actualice y muestre los cambios automáticamente
+        this.intervalId = setInterval(this.fetchData, 5000);
+    }
+
+    // Para que cuando pasemos de página, se cancele el interval
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     fetchData = async () => {
@@ -57,10 +65,10 @@ class Badges extends React.Component {
     }
 
     render() {
-        // Loading sea cierto
+        // Loading sea cierto y los datos son undefined o no existan, solamente ahí hará el efecto de carga
         // Regresamos Loading
         // Cuando loading acabe nuestros datos quizás ya estén
-        if (this.state.loading === true) {
+        if (this.state.loading === true && !this.state.data) {
             return <PageLoading />;
         }
 
