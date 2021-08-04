@@ -9,18 +9,25 @@ import header from '../images/platziconf-logo.svg';
 // Importamos nuestros componentes
 import Badge from '../components/Badge';
 import BadgeForm from '../components/BadgeForm';
+import PageLoading from '../components/PageLoading';
 
 // Importamos el API porque usaremos una llamada
 import api from '../api';
 
+// El loading no va ser true cuando lleguemos a esta página
+// Este loading va a representar que estamos enviando los datos 
 class BadegeNew extends React.Component {
-    state = { form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        jobTitle: '',
-        twitter: '',
-    } };
+    state = { 
+        loading: false,
+        error: null,
+        form: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            jobTitle: '',
+            twitter: '',
+        } 
+    };
 
     handleChange = e => {
         this.setState({
@@ -42,14 +49,24 @@ class BadegeNew extends React.Component {
         try {
             await api.badges.create(this.state.form);
             this.setState({ loading: false });
+
+            // irnos del formulario, irnos a la lista de badges
+            // Las rutas pasan 3 props, math, history y location
+            // history redirigir al usuario con push
+            this.props.history.push('/badges');
         } catch (error) {
             this.setState({ loading: false, error: error });
         }
     }
 
-    // Quitamos el Navbar
-    // || -> Si este valor no existe le damos su valor
+    // Si loading se enciende no queremos regresar el formulario
+    // Queremos regresar la visualizacion el loader
+    // El error lo vamos a localizar dentro del formulario
+    // El error estará en BadgeForm y lo recibiremos ahi mismo
     render() {
+        if (this.state.loading) {
+            return <PageLoading />
+        }
         return (
             <React.Fragment>
                 <div className="BadgeNew__hero">
@@ -73,7 +90,8 @@ class BadegeNew extends React.Component {
                             <BadgeForm 
                                 onChange={this.handleChange} 
                                 onSubmit={this.handleSubmit}
-                                formValues={this.state.form}    
+                                formValues={this.state.form} 
+                                error={this.state.error}   
                             />
                         </div>
                     </div>
