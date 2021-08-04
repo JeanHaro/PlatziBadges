@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
 // Importando estilos
@@ -10,12 +9,13 @@ import confLogo from '../images/platziconf-logo.svg'
 
 // Importando componentes
 import Badge from '../components/Badge';
+import DeleteBadgeModal from '../components/DeleteBadgeModal.js'
 
 function BadgeDetails (props) {
     const badge = props.badge;
-    // createPortal(que queremos renderizar, donde lo queremos hacer)
-    // Creamos un div#modal en public > index.html
-    // No aparece abajo del botón
+    // Si se despliega o no en isOpen, que será el estado que mandarán del Container
+    // Si se clickea en el button se despliega por el onclick
+    // onClose mediante la función que se da en el container
     return (
         <div>
             <div className="BadgeDetails__hero">
@@ -52,8 +52,12 @@ function BadgeDetails (props) {
                                 </Link>
                             </div>
                             <div>
-                                <button className="btn btn-danger">Delete</button>
-                                {ReactDOM.createPortal(<h1>Hola, realmente no estoy aquí</h1>, document.getElementById('modal'))}
+                                <button onClick={props.onOpenModal} className="btn btn-danger">Delete</button>
+                                <DeleteBadgeModal 
+                                    isOpen={props.modalIsOpen} 
+                                    onClose={props.onCloseModal} 
+                                    onDeleteBadge={props.onDeleteBadge}
+                                />
                             </div>
                         </div>
                     </div>
