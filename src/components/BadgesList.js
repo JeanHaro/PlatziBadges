@@ -11,27 +11,92 @@ import logoTwitter from '../images/twitter.png';
 // Importamos componentes
 import Gravatar from './Gravatar';
 
-class BadgesList extends React.Component {
-    render() {
-        // No hubo ningún dato
-        // Si no hubo ningún dato en la data, se mostrará esto
-        if (this.props.badges.length === 0) {
-            return (
-                <div>
-                    <h3>No badges were found</h3>
-                    <Link className="btn btn-primary" to="/badges/new">
-                        Create new badge
-                    </Link>
-                </div>
-            )
-        }
+// Custom Hooks
+function useSearchBadges (badges) {
+    // Le damos un useState vacío
+    const [query, setQuery ] = React.useState('');
 
-        // Damos un Link a todo el contenido del LI, y le damos que redireccione por su id al edit
-        // Le ponemos clase de bootstrap para que quite los colores azules
-        // Y una clase propia para editar el entorno
+    // Guardamos los resultados en esta variable
+    // No recomendable
+    /* const filteredBadges = badges.filter(badge => {
+        // Preguntamos si el badge incluye el query(el texto) que colocamos en el input
+        // Buscamos por nombre en minusculas y mayusculas
+        // return badge.firstName.toLowerCase().includes(query.toLowerCase());
+        // Buscamos por nombre y apellido en minusculas y mayusculas
+        return `${badge.firstName} ${badge.lastName}`.toLowerCase().includes(query.toLowerCase());
+    }) */
+
+    // El valor inicial va ser la lista completa de los badges
+    const [filteredBadges, setFilteredBadges] = React.useState(badges)
+    // Con Hooks del React que te da
+    // Argumentos que son una lista, siempre que sean iguales la constetación si ya está memorizada te la regresa de inmediato
+    // Si no la calcula por primera vez
+    // Si el query o badges cambia, se vuelve a calcular
+    React.useMemo( () => {
+        const result = badges.filter(badge => {
+            // Preguntamos si el badge incluye el query(el texto) que colocamos en el input
+            // Buscamos por nombre en minusculas y mayusculas
+            // return badge.firstName.toLowerCase().includes(query.toLowerCase());
+            // Buscamos por nombre y apellido en minusculas y mayusculas
+            return `${badge.firstName} ${badge.lastName}`.toLowerCase().includes(query.toLowerCase());
+        })
+        setFilteredBadges(result)
+        
+    }, [ badges, query ]);
+
+    // setQuery, parametro, es una forma de poner el query
+    // filteredBadges, es una lista que filtramos
+    return { query, setQuery, filteredBadges }
+}
+
+// Le damos query como value al input
+// y el value de ahí recibirá setQuery(e.target.value), este valor
+function BadgesList (props) {
+    const badges = props.badges;
+
+    // Utilización del Custom Hooks
+    const { query, setQuery, filteredBadges } = useSearchBadges(badges); 
+
+    // Ya no estamos pendiente a todos los badges solo a los filtrados
+    if (filteredBadges.length === 0) {
         return (
+            <div>
+                <div className="form-group">
+                    <label>Filter Badges</label>
+                    <input 
+                        type="text" 
+                        className="form-control"
+                        value={query}
+                        onChange={e => {
+                            setQuery(e.target.value)
+                        }} 
+                    />
+                </div>
+                <h3>No badges were found</h3>
+                <Link className="btn btn-primary" to="/badges/new">
+                    Create new badge
+                </Link>
+            </div>
+        )
+    }
+
+    // Solo a los filteredBadges, a lo que se filtran queremos mostrar
+    return (
+        <div className="BadgesList">
+            <div className="form-group">
+                <label>Filter Badges</label>
+                <input 
+                    type="text" 
+                    className="form-control"
+                    value={query}
+                    onChange={e => {
+                        setQuery(e.target.value)
+                    }} 
+                />
+            </div>
+
             <ul className="list-unstyled">
-                {this.props.badges.map((badge) => {
+                {filteredBadges.map((badge) => {
                     return (
                         <li key={badge.id}>
                             <Link className="link-list text-reset text-decoration-none" to={`/badges/${badge.id}`}>
@@ -40,7 +105,7 @@ class BadgesList extends React.Component {
                                     email={badge.email}
                                     alt="Avatar"
                                 />
-
+    
                                 <div className="info-container">
                                     <p>{badge.firstName} {badge.lastName}</p>
                                     <p className="info-twitter"><img src={logoTwitter} alt="Logo Twitter" />@{badge.twitter}</p>
@@ -51,8 +116,8 @@ class BadgesList extends React.Component {
                     )
                 })}
             </ul>
-        )
-}
+        </div>
+    )
 }
 
 export default BadgesList;
