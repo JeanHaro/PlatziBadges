@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
 // Importando estilos
@@ -12,6 +13,9 @@ import Badge from '../components/Badge';
 
 function BadgeDetails (props) {
     const badge = props.badge;
+    // createPortal(que queremos renderizar, donde lo queremos hacer)
+    // Creamos un div#modal en public > index.html
+    // No aparece abajo del botón
     return (
         <div>
             <div className="BadgeDetails__hero">
@@ -49,6 +53,7 @@ function BadgeDetails (props) {
                             </div>
                             <div>
                                 <button className="btn btn-danger">Delete</button>
+                                {ReactDOM.createPortal(<h1>Hola, realmente no estoy aquí</h1>, document.getElementById('modal'))}
                             </div>
                         </div>
                     </div>
